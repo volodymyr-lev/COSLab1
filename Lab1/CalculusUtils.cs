@@ -219,7 +219,8 @@ namespace Lab1
             return sum*h;
         }
 
-        private static double countCoefficients(int N, double I1, I2)
+        // 
+        private static double countCoefficients(int N, double I1, double I2)
         {
 
 
