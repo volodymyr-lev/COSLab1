@@ -222,6 +222,7 @@ namespace Lab1
         private static double countCoefficients(int N, double I1, I2)
         {
 
+
         }
     }
 }
