@@ -54,6 +54,7 @@ namespace Lab1
 
             Func<double, double> integrand = t => F(t) * Math.Cos(n * t);
             return (1.0 / Math.PI) * integral(integrand, -Math.PI, Math.PI, 4000);
+        
         }
 
         public static double Bn(int n, double I1, double I2)
@@ -135,16 +136,12 @@ namespace Lab1
         {
             Harmonics = harmonics;
 
-            double a0 = An(0, I1, I2); Ans.Add(a0);
-            double b0 = Bn(0, I1, I2); Bns.Add(b0);
-            double result = a0 / 2.0;
+            double result = Ans[0] / 2.0;
 
             for (int n = 1; n <= harmonics; n++)
             {
-                double an = An(n, I1, I2);
-                double bn = Bn(n, I1, I2);
-
-                Ans.Add(an); Bns.Add(bn);
+                double an = Ans[n];
+                double bn = Bns[n];
 
                 result += an * Math.Cos(n * x) + bn * Math.Sin(n * x);
             }
@@ -168,12 +165,13 @@ namespace Lab1
 
         public static double CalculatePower(int N, double i1, double i2)
         {
-            double power = 0.5 * Math.Pow(An(0, i1, i2), 2);
+            //double power = 0.5 * Math.Pow(An(0, i1, i2), 2);
+            double power = 0.25 * Math.Pow(Ans[0], 2);
 
 
             for (int n = 1; n <= N; n++)
             {
-                power += 0.5 * (Math.Pow(An(n, i1, i2), 2) + Math.Pow(Bn(n, i1, i2), 2));
+                power += 0.5 * (Math.Pow(Ans[n], 2) + Math.Pow(Bns[n], 2));
             }
 
             Power = power;
@@ -184,10 +182,10 @@ namespace Lab1
         //public static double CalculatePower(int maxN, double I1, double I2)
         //{
         //    Func<double, double> S_N = x => CountFourier(maxN, x, I1, I2);
-        //    return (1.0 / (I2 - I1)) * integral(x => Math.Pow(S_N(x), 2), I1, I2, 4000);
+
+        //    return (1.0 / (I2 - I1)) * integral(x => Math.Pow(S_N(x), 2), I1, I2, 40000);
         //}
 
-        //after this remove return tuple and make properties
         public static void SaveCalculations(string fileName = "../../calcs.txt")
         {
             using (StreamWriter writetext = new StreamWriter(fileName))
@@ -220,10 +218,20 @@ namespace Lab1
         }
 
         // 
-        private static double countCoefficients(int N, double I1, double I2)
+        public static void countCoefficients(int N, double I1, double I2)
         {
+            Ans.Clear(); Bns.Clear();
 
+            double a0 = An(0, I1, I2); Ans.Add(a0);
+            double b0 = Bn(0, I1, I2); Bns.Add(b0);
 
+            for (int i = 1; i <= N; i++)
+            {
+                double an = An(i, I1, I2);
+                double bn = Bn(i, I1, I2);
+
+                Ans.Add(an); Bns.Add(bn);
+            }
         }
     }
 }

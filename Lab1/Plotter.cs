@@ -60,7 +60,9 @@ namespace Lab1
 
             double step = 0.01;
 
-            for(double i = i1; i < i2; i+=step)
+            CalculusUtils.countCoefficients(N, i1, i2);
+
+            for (double i = i1; i < i2; i+=step)
             {
                 double fourier = CalculusUtils.CountFourier(N,i,i1,i2);
                 dataX.Add(i);

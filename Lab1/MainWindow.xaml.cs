@@ -41,9 +41,11 @@ namespace Lab1
             plotter.ClearPlot();
         }
 
+
+
         private void BtnDrawAprox_Click(object sender, RoutedEventArgs e)
         {
-            GetData();
+            if(!GetData()) return;
 
             (double delta, double power) = plotter.PlotFourier(N, I1, I2);
 
@@ -56,10 +58,13 @@ namespace Lab1
             CalculusUtils.SaveCalculations();
         }
 
-        private void GetData()
+        private bool GetData()
         {
+            if (string.IsNullOrEmpty(TextBoxI1.Text) || string.IsNullOrEmpty(TextBoxI2.Text)) return false;
+            
             N = InputConverter.GetN(TextBoxN.Text);
             (I1,I2) = InputConverter.GetIntervals(TextBoxI1.Text, TextBoxI2.Text);
+            return true;
         }
     }
 }
