@@ -231,6 +231,7 @@ namespace Lab1
                 double bn = Bn(i, I1, I2);
 
                 Ans.Add(an); Bns.Add(bn);
+
             }
         }
     }
